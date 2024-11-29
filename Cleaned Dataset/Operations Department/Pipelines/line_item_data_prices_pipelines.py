@@ -1,8 +1,8 @@
 import pandas as pd
 
-prices1 = pd.read_csv('line_item_data_prices1.csv')
-prices2 = pd.read_csv('line_item_data_prices2.csv')
-prices3 = pd.read_parquet('line_item_data_prices3.parquet')
+prices1 = pd.read_csv('../../../Raw Dataset/Operations Department/line_item_data_prices1.csv')
+prices2 = pd.read_csv('../../../Raw Dataset/Operations Department/line_item_data_prices2.csv')
+prices3 = pd.read_parquet('../../../Raw Dataset/Operations Department/line_item_data_prices3.parquet')
 
 prices = [prices1, prices2, prices3]
 allprice = pd.concat(prices)

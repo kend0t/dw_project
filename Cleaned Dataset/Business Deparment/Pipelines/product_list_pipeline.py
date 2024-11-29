@@ -22,6 +22,7 @@ products_lookup = product_list[['product_id','product_name','price']].copy()
 # Sort the values by increasing product IDs (closest approach to ensure that the products are in true chronological order)
 products_lookup = products_lookup.sort_values(by='product_id')
 
+
 # Create a 'new_id' column that assigns chronological product IDs
 products_lookup['new_id'] = ['PRODUCT{:05d}'.format(i) for i in range(1,len(product_list)+1)]
 
@@ -33,7 +34,8 @@ updated_product_list = product_list.merge(
     right_on=['product_id','product_name'],
     how='left'
 )
-
+# Copy old ID to a separate column
+updated_product_list['old_id'] = updated_product_list['product_id']
 # Change the current product IDs to the new IDs
 updated_product_list['product_id'] = updated_product_list['new_id']
 
