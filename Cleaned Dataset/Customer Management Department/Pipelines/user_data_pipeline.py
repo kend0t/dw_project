@@ -30,6 +30,8 @@ updated_user_data = user_data.merge(
     how='left'
 )
 
+# Copy old ID to a separate column
+updated_user_data['old_id'] = updated_user_data['user_id']
 # Change the current user ID to the new user ID
 updated_user_data['user_id'] = updated_user_data['new_id']
 
