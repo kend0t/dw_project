@@ -1,0 +1,12 @@
+import pandas as pd
+import os
+
+# Load the cleaned product_list file
+base_dir = os.path.dirname(os.path.realpath(__file__))
+file_path = os.path.join(base_dir, 'Cleaned Dataset/Business Deparment/New Files/cleaned_product_list.csv')
+product_list = pd.read_csv(file_path)
+
+# Drop old_id column
+product_list = product_list.drop(columns=['old_id'])
+print(product_list)
+

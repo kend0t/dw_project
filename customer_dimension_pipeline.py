@@ -26,7 +26,6 @@ customer_dimension = customer_dimension.merge(
 )
 
 customer_dimension = customer_dimension.drop(columns=['old_id'])
-
 print(customer_dimension)
 
 
