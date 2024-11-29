@@ -1,8 +1,13 @@
 import pandas as pd
+import os
 
-prices1 = pd.read_csv('../../../Raw Dataset/Operations Department/line_item_data_prices1.csv')
-prices2 = pd.read_csv('../../../Raw Dataset/Operations Department/line_item_data_prices2.csv')
-prices3 = pd.read_parquet('../../../Raw Dataset/Operations Department/line_item_data_prices3.parquet')
+base_dir = os.path.dirname(os.path.realpath(__file__))
+file_path = os.path.join(base_dir, '../../../Raw Dataset/Operations Department/line_item_data_prices1.csv')
+prices1 = pd.read_csv(file_path)
+file_path = os.path.join(base_dir, '../../../Raw Dataset/Operations Department/line_item_data_prices2.csv')
+prices2 = pd.read_csv(file_path)
+file_path = os.path.join(base_dir,'../../../Raw Dataset/Operations Department/line_item_data_prices3.parquet')
+prices3 = pd.read_parquet(file_path)
 
 prices = [prices1, prices2, prices3]
 allprice = pd.concat(prices)
@@ -14,4 +19,5 @@ allprice['quantity'] = allprice['quantity'].str.extract(r'(\d+)').astype(int)
 allprice = allprice.drop('Unnamed: 0', axis=1)
 
 #make csv
-allprice.to_csv("cleaned_line_item_data_prices.csv", index=False)
+file_path = os.path.join(base_dir, '../New Files/cleaned_line_item_data_prices.csv')
+allprice.to_csv(file_path, index=False)
