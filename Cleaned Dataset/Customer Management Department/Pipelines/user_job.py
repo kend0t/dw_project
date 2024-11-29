@@ -40,7 +40,7 @@ updated_user_job = updated_user_job.drop(columns=['new_id','old_id'])
 
 # ----------------------------------------------------------------------
 # Fill null values in job_level column with N/A
-updated_user_job['job_level'] = updated_user_job['job_level'].fillna('N/A')
+updated_user_job['job_level'] = updated_user_job['job_level'].fillna('Not Applicable')
 
 # Drop unnecessary first column
 updated_user_job = updated_user_job.drop(updated_user_job.columns[0], axis=1)
