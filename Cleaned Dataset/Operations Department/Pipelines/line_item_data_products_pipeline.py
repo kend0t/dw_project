@@ -20,7 +20,7 @@ product3 = pd.read_parquet(file_path)
 prod = [product1, product2, product3]
 allproduct = pd.concat(prod)
 
-# drom 'Unnamed: 0' column
+# drop 'Unnamed: 0' column
 allproduct = allproduct.drop('Unnamed: 0', axis=1)
 
 # Create a lookup table for the new user ids
