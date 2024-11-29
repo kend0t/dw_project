@@ -1,4 +1,4 @@
-# This pipeline cleans the column of the user_data.json file
+# This pipeline cleans the user_data.json file
 
 # Issues to fix:
 # 1. Duplicate user IDs with different customer names
