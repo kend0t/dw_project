@@ -20,7 +20,7 @@ user_lookup = user_data[['user_id','creation_date','name']].copy()
 user_lookup = user_lookup.sort_values(by='creation_date')
 
 # Create a new column 'new_id' that assigns chronological user IDs
-user_lookup['new_id'] = ['USER{:05d}'.format(i) for i in range(1,len(user_data)+1)]
+user_lookup['new_id'] = ['CUSTOMER{:05d}'.format(i) for i in range(1,len(user_data)+1)]
 
 # Create a new dataframe to join the original table with the lookup table
 updated_user_data = user_data.merge(
