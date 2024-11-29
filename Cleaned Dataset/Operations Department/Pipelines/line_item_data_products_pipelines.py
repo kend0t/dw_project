@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # Load the 
-base_dir = os.path.dirname(os.path.realpath(_file_))
+base_dir = os.path.dirname(os.path.realpath(__file__))
 file_path = os.path.join(base_dir, '../../Business Deparment/New Files/cleaned_product_list.csv')
 user_data = pd.read_csv(file_path)
 
