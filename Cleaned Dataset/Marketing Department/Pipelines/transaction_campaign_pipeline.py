@@ -28,15 +28,25 @@ updated_transactional_campaign = transactional_campaign_data.merge(
 updated_transactional_campaign['campaign_id'] = updated_transactional_campaign['new_id']
 updated_transactional_campaign = updated_transactional_campaign.drop(columns=['new_id','old_id'])
 
+# transform estimated arrival = transaction_date + estimated arrival > datetime format
+updated_transactional_campaign['transaction_date'] = pd.to_datetime(updated_transactional_campaign['transaction_date'])
+updated_transactional_campaign['estimated arrival'] = updated_transactional_campaign['estimated arrival'].str.extract(r'(\d+)').astype(int)
+updated_transactional_campaign['estimated arrival'] = updated_transactional_campaign['transaction_date'] + pd.to_timedelta(updated_transactional_campaign['estimated arrival'], unit='D')
+
 # Create a new transaction id column, using the sorted data by transaction date as reference 
 updated_transactional_campaign = updated_transactional_campaign.sort_values(by='transaction_date')
-updated_transactional_campaign['transaction_id'] = ['TRANSACTION{:05d}'.format(i) for i in range(1,len(transactional_campaign_data)+1)]
+
+# Make avail values descriptive
+updated_transactional_campaign['availed'] = updated_transactional_campaign['availed'].replace({1.0:'Yes', 0.0: 'No'})
+
 
 # Drop the original index column
 updated_transactional_campaign = updated_transactional_campaign.drop(updated_transactional_campaign.columns[0], axis=1)
 
 # Reorganize the table columns
-updated_transactional_campaign = updated_transactional_campaign[['transaction_id', 'campaign_id', 'order_id', 'transaction_date', 'estimated arrival', 'availed']]
+updated_transactional_campaign = updated_transactional_campaign[['campaign_id', 'order_id', 'transaction_date', 'estimated arrival', 'availed']]
+
+
 
 # Write the transformed file to new csv file
 file_path = os.path.join(base_dir, '../New Files/cleaned_transactional_campaign_data.csv')
