@@ -50,6 +50,8 @@ staff_data["creation_date"] = pd.to_datetime(staff_data["creation_date"])
 
 staff_data = staff_data.sort_values(by="creation_date").reset_index(drop=True)
 
+
+
 staff_data['new_staff_id'] = ['STAFF{:05d}'.format(i) for i in range(1, len(staff_data) + 1)]
 
 staff_id_mapping = {}
@@ -80,7 +82,7 @@ merchant_id_column = merchant_data.pop("new_merchant_id")
 merchant_data.insert(0, "merchant_id", merchant_id_column)
 
 staff_id_column = staff_data.pop("new_staff_id")
-staff_data.insert(0, "staff_id", merchant_id_column)
+staff_data.insert(0, "staff_id", staff_id_column)
 
 merchant_data_file_path = os.path.join(base_dir, '../New Files/cleaned_merchant_list.csv')
 order_with_merchant_file_path = os.path.join(base_dir, '../New Files/cleaned_order_with_merchant_list.csv')
@@ -91,3 +93,4 @@ order_with_merchant_data.to_csv(order_with_merchant_file_path, index=False)
 staff_data.to_csv(staff_data_file_path, index=False)
 
 print(merchant_data.head(), order_with_merchant_data.head(), staff_data.head(), sep="\n--------------------------------------------------------------------------------------\n")
+print(staff_data)
