@@ -42,6 +42,6 @@ updated_user_data = updated_user_data.drop(columns=['new_id'])
 # -----------------------------------------------------------------
 
 # Writing the transformed files to a new csv file
-file_path = os.path.join(base_dir, '../New Files/cleaned_user_data_.csv')
+file_path = os.path.join(base_dir, '../New Files/cleaned_user_data.csv')
 updated_user_data.to_csv(file_path,index=False)
 
