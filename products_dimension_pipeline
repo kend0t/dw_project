@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import mysql.connector
 
 # Load the cleaned product_list file
 base_dir = os.path.dirname(os.path.realpath(__file__))
@@ -10,3 +11,36 @@ product_list = pd.read_csv(file_path)
 product_list = product_list.drop(columns=['old_id'])
 print(product_list)
 
+# ---------------------------------------------------------------------------------------------------------
+connection = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="kendot",
+    database="project"
+)
+
+cursor = connection.cursor()
+
+table_name = 'products'
+
+
+for _, row in product_list.iterrows():
+    insert_query = f'''
+        INSERT INTO {table_name} (product_id, product_name, product_type, product_price)
+        VALUES (%s, %s, %s, %s)
+        ON DUPLICATE KEY UPDATE
+        product_name = VALUES(product_name),
+        product_type = VALUES(product_type),
+        product_price = VALUES(product_price);
+    '''
+    # Insert values from the row
+    cursor.execute(insert_query, (row['product_id'], row['product_name'], row['product_type'], row['price']))
+
+# Commit the changes
+connection.commit()
+
+# Close the cursor and connection
+cursor.close()
+connection.close()
+
+print("Data inserted successfully!")

@@ -76,6 +76,19 @@ updated_campaign_data['campaign_id'] = updated_campaign_data['new_id']
 updated_campaign_data = updated_campaign_data.sort_values(by='campaign_id')
 updated_campaign_data = updated_campaign_data.drop(columns=['new_id'])
 
+# Insert a new row to indicate no campaign
+new_campaign_row = {
+    'campaign_id': 'CAMPAIGN00000',
+    'campaign_name': 'No Campaign',
+    'campaign_description': "No Campaign",
+    'discount': 0,  
+    'old_id': ""    
+}
+
+# Append the new row as a Dataf rame and ensure column alignment
+new_row_df = pd.DataFrame([new_campaign_row], columns=updated_campaign_data.columns)
+updated_campaign_data = pd.concat([new_row_df, updated_campaign_data], ignore_index=True)
+
 # Remove the original index column
 updated_campaign_data = updated_campaign_data.drop(updated_campaign_data.columns[0], axis=1)
 
